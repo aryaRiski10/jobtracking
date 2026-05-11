@@ -1,26 +1,53 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --primary: #165dff;
+  --primary-hover: #0e4bd9;
+  --foreground: #080c1a;
+  --secondary: #6a7686;
+  --muted: #eff2f7;
+  --border: #f3f4f3;
+  --card-grey: #f1f3f6;
+  --success: #30b22d;
+  --error: #ed6b60;
+  --warning: #fed71f;
+  --font-sans: "Lexend Deca", sans-serif;
 }
-
 @theme inline {
-  --color-background: var(--background);
+  --color-primary: var(--primary);
+  --color-primary-hover: var(--primary-hover);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-secondary: var(--secondary);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+  --color-card-grey: var(--card-grey);
+  --color-success: var(--success);
+  --color-error: var(--error);
+  --color-warning: var(--warning);
+  --font-sans: var(--font-sans);
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* Custom Badge Colors for Statuses */
+.badge-applied {
+  background-color: var(--muted);
+  color: var(--secondary);
 }
-
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+.badge-interview {
+  background-color: rgba(254, 215, 31, 0.2);
+  color: #9a8300;
+}
+.badge-offer {
+  background-color: rgba(48, 178, 45, 0.1);
+  color: var(--success);
+}
+.badge-rejected {
+  background-color: rgba(237, 107, 96, 0.1);
+  color: var(--error);
 }
