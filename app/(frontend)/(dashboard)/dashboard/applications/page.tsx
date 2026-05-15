@@ -1,4 +1,4 @@
-import ApplicationsClient from "./components/ApplicationsClient";
+import ApplicationsClient from "./ApplicationsClient";
 import ButtonJobAdd from "./components/ButtonJobAdd";
 import { getJobs } from "@/lib/data";
 

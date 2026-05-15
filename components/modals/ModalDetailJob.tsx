@@ -2,25 +2,27 @@ import { formatDate } from "@/lib/utils";
 import { ListCardProps } from "@/types/types";
 import { Edit, ExternalLink, FileText, X, Trash } from "lucide-react";
 import type { Job } from "@/app/generated/prisma/client";
+import { deleteJob } from "@/lib/actions";
+import { useEffect } from "react";
 
-export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job: Job | null, onOpenEdit: () => void, isOpen: boolean, onClose: () => void}) {
+export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job: Job, onOpenEdit: () => void, isOpen: boolean, onClose: () => void}) {
     
-    // useEffect(() => {
-    //     if (!isOpen) return;
+    useEffect(() => {
+        if (!isOpen) return;
 
-    //     function handleMouseDown(event: MouseEvent) {
-    //         const target = event.target as HTMLElement;
-    //         if (target.id === "detail-modal" || target.closest("#detail-modal") === null) {
-    //             onClose();
-    //         }
-    //     }
+        function handleMouseDown(event: MouseEvent) {
+            const target = event.target as HTMLElement;
+            if (target.id === "detail-modal" || target.closest("#detail-modal") === null) {
+                onClose();
+            }
+        }
 
-    //     window.addEventListener("mousedown", handleMouseDown);
+        window.addEventListener("mousedown", handleMouseDown);
 
-    //     return () => {
-    //         window.removeEventListener("mousedown", handleMouseDown);
-    //     };
-    // }, [isOpen, onClose]);
+        return () => {
+            window.removeEventListener("mousedown", handleMouseDown);
+        };
+    }, [isOpen, onClose]);
     if (!isOpen) return null;
 
     return (
@@ -74,9 +76,12 @@ export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job:
                         <ExternalLink className="size-4" />
                     </a>
                     <button className="size-10 rounded-xl border border-[#EEF0FF] flex items-center justify-center text-secondary hover:bg-muted transition-colors cursor-pointer"
-                        title="Delete">
+                        title="Delete"
+                        onClick={() => deleteJob(job?.id)}
+                        >
                         <Trash className="size-4 text-[#BC4800]" />
                     </button>
+                    
                     </div>
                 </div>
                 {/* Details Grid */}
@@ -103,7 +108,7 @@ export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job:
                     <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
                     <FileText className="size-4 text-secondary" /> Notes
                     </h4>
-                    <div className="bg-card-grey border border-border rounded-2xl p-4 text-sm text-secondary leading-relaxed min-h-[100px]">
+                    <div className="whitespace-pre-wrap bg-card-grey border border-border rounded-2xl p-4 text-sm text-secondary leading-relaxed min-h-[100px]">
                     {job?.notes || "No notes added yet."}
                     </div>
                 </div>

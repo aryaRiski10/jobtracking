@@ -1,7 +1,7 @@
 'use client'
 import React from 'react'
-import SearchFilterJob from './SearchFilterJob'
-import ViewJob from './ViewJob'
+import SearchFilterJob from './components/SearchFilterJob'
+import ViewJob from './components/ViewJob'
 import { useState } from 'react'
 import type { JobModel as Job } from "@/app/generated/prisma/models"
 import type { JobStatus } from "@/app/generated/prisma/enums"

@@ -23,3 +23,31 @@ export async function getJobs() {
         throw new Error("Failed to fetch jobs");
     }
 }
+
+export async function getInterviews() {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+        throw new Error("Unauthorized");
+    }
+
+    try{
+        const interviews = await prisma.interview.findMany({
+            where: {
+                job: {
+                    userId: session.user.id,
+                    status: "interview",
+                },
+            },
+            orderBy: {
+                date: "asc",
+            },
+            include: {
+                job: true,
+            },
+        })
+        return interviews;
+    } catch (error) {
+        throw new Error("Failed to fetch interviews");
+    }
+}

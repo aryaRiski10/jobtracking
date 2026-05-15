@@ -16,19 +16,36 @@ export default function CreateForm({ onClose }: { onClose: () => void }) {
                 </div>
             ) : null}
             <div className="p-6 flex flex-col gap-4 ">
-                <div>
-                    <label htmlFor="companyName" className="block text-sm font-medium text-foreground mb-1.5">
-                    Company Name
-                    </label>
-                    <input
-                    type="text"
-                    name="companyName"
-                    id="companyName"
-                    placeholder="e.g. Google"
-                    className="w-full bg-muted border border-transparent focus:border-primary focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all"
-                    />
-                    <div id="companyName-error" className="text-red-500 text-sm mt-1" aria-live="polite" aria-atomic="true">
-                        <span className="mt-2 text-sm text-red-500">{fieldErrors?.companyName?.[0]}</span>
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <label htmlFor="companyName" className="block text-sm font-medium text-foreground mb-1.5">
+                        Company Name
+                        </label>
+                        <input
+                        type="text"
+                        name="companyName"
+                        id="companyName"
+                        placeholder="e.g. Google"
+                        className="w-full bg-muted border border-transparent focus:border-primary focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all"
+                        />
+                        <div id="companyName-error" className="text-red-500 text-sm mt-1" aria-live="polite" aria-atomic="true">
+                            <span className="mt-2 text-sm text-red-500">{fieldErrors?.companyName?.[0]}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <label htmlFor="companyLocation" className="block text-sm font-medium text-foreground mb-1.5">
+                        Company Location
+                        </label>
+                        <input
+                        type="text"
+                        name="companyLocation"
+                        id="companyLocation"
+                        placeholder="e.g. Jakarta Selatan"
+                        className="w-full bg-muted border border-transparent focus:border-primary focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all"
+                        />
+                        <div id="companyLocation-error" className="text-red-500 text-sm mt-1" aria-live="polite" aria-atomic="true">
+                            <span className="mt-2 text-sm text-red-500">{fieldErrors?.companyLocation?.[0]}</span>
+                        </div>
                     </div>
                 </div>
                 <div>

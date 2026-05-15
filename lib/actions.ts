@@ -27,6 +27,20 @@ const jobSchema = z.object({
     notes: z.string().optional(),
 });
 
+const interviewSchema = z.object({
+    title : z.enum(["hr interview", "technical interview", "user interview", "final interview", "salary offering"]),
+    type: z.enum(["online", "onsite"]).optional(),
+    date: z.string().refine((date) => !isNaN(Date.parse(date)), {
+        message: "Invalid date format",
+    }),
+    link: z.preprocess(
+        emptyStringToUndefined,
+        z.string().url("Invalid URL format").optional(),
+    ),
+    notes: z.string().optional(),
+    status: z.enum(["upcoming", "completed", "cancelled"]).optional(),
+})
+
 export const addJob = async (prevState: unknown, formData: FormData) => {
 
     const session = await auth();
@@ -44,8 +58,6 @@ export const addJob = async (prevState: unknown, formData: FormData) => {
             error: z.flattenError(validatedField.error).fieldErrors,
         }
     }
-
-    console.log(validatedField);
 
     try {
         await prisma.job.create({
@@ -92,6 +104,10 @@ export const updateJob = async (id: string, prevState: unknown, formData: FormDa
     console.log(validatedField);
 
     try {
+        const currentJob = await prisma.job.findUnique({
+            where: { id },
+            select: { status: true },
+        })
         await prisma.job.update({
             where: { id },
             data: {
@@ -105,13 +121,91 @@ export const updateJob = async (id: string, prevState: unknown, formData: FormDa
                 userId: session.user.id,
             }
         })
+
+            // If status changed to "interview", create an interview record
+        if (currentJob?.status !== "interview" && validatedField.data.status === "interview"){
+            await prisma.interview.create({
+                data: {
+                    jobId: id,
+                    status: "upcoming",
+                }
+            })
+        }
+
     } catch (error) {
+        
         return {
             error: "An unexpected error occurred while updating the job.",
         }
     }
-    console.log("Job updated successfully");
+    revalidatePath("/dashboard/applications");
+    revalidatePath("/dashboard/interviews");
+    redirect("/dashboard/applications");
+}
+
+// delete job
+export const deleteJob = async (id: string) => {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+        return {
+            error: "Unauthorized",
+        }
+    }
+
+    try {
+        await prisma.job.delete({
+            where: { id, userId: session.user.id },
+        });
+    } catch (error) {
+        return {
+            error: "An unexpected error occurred while deleting the job.",
+        }
+    }
 
     revalidatePath("/dashboard/applications");
     redirect("/dashboard/applications");
+}
+
+// update interview
+export const updateInterview = async (id: string, prevState: unknown, formData: FormData) => {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+        return {
+            error: "Unauthorized",
+        }
+    }
+
+    const validatedField = interviewSchema.safeParse(Object.fromEntries(formData.entries()));
+
+    if (!validatedField.success) {
+        return {
+            error: z.flattenError(validatedField.error).fieldErrors,
+        }
+    }
+
+    try{
+        await prisma.interview.update({
+            where: { id },
+            data: {
+                title: validatedField.data.title,
+                type: validatedField.data.type,
+                date: new Date(validatedField.data.date),
+                link: validatedField.data.link,
+                status: validatedField.data.status,
+                notes: validatedField.data.notes,
+            }
+        })
+        console.log("Interview updated successfully");
+    } catch (error) {
+        return {
+            error: "An unexpected error occurred while updating the interview.",
+        }
+        // console.error(error);
+        // console.log(validatedField)
+    }
+
+    revalidatePath("/dashboard/interviews");
+    redirect("/dashboard/interviews");
 }
