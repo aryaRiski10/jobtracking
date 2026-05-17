@@ -1,14 +1,15 @@
 import { signIn } from "@/auth"
-import { IoLogoGoogle } from "react-icons/io5"
+import { FcGoogle } from "react-icons/fc";
+
 
 export function GoogleButton() {
     return (
-        <form action={async() => {
+        <form className="w-full" action={async() => {
             'use server'
             await signIn("google", { callbackUrl: "/dashboard" })
         }}>
-            <button type="submit" className="flex items-center justify-center gap-1 py-2.5 px-8 rounded-lg uppercase text-white font-medium text-sm bg-blue-500 hover:bg-blue-500 w-full">
-                <IoLogoGoogle /> Sign in with Google
+            <button type="submit" className="w-full flex items-center justify-center gap-1 py-2.5 px-8 rounded-sm capitalize text-gray-600 font-bold text-sm bg-gray-100 hover:bg-gray-200 border border-gray-300">
+                <FcGoogle /> Login with Google
             </button>
         </form>
     )
