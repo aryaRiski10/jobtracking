@@ -8,6 +8,7 @@ export default function CreateForm({ onClose }: { onClose: () => void }) {
     const formError = typeof state?.error === "string" ? state.error : undefined;
     const fieldErrors = typeof state?.error === "string" ? undefined : state?.error;
 
+    const today = new Date().toISOString().slice(0, 16);
     return (
         <form action={formAction} className="space-y-4">
             {formError ? (
@@ -88,6 +89,7 @@ export default function CreateForm({ onClose }: { onClose: () => void }) {
                         </label>
                         <input
                             type="datetime-local"
+                            max={today}
                             name="dateApplied"
                             id="dateApplied"
                             className="w-full bg-muted border border-transparent focus:border-primary focus:bg-white rounded-xl px-4 py-3 text-sm outline-none transition-all"

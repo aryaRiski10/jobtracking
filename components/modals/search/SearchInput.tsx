@@ -1,5 +1,5 @@
 import React from 'react'
-import { Briefcase, Search } from "lucide-react";
+import { Search } from "lucide-react";
 
 
 const SearchInput = ({search}: {search: (e: React.ChangeEvent<HTMLInputElement>) => void}) => {

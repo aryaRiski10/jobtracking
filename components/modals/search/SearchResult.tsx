@@ -1,6 +1,5 @@
 import { Job } from '@/app/generated/prisma/client'
 import React from 'react'
-import ModalDetailJob from '../ModalDetailJob'
 
 const SearchResult = ({openJobDetail, query, resultsJobs}: {openJobDetail: (job: Job) => void, query: string, resultsJobs: Job[]}) => {
 

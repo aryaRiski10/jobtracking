@@ -1,11 +1,8 @@
 import ListCard from "./ListCard";
 import type { JobModel as Job } from "@/app/generated/prisma/models"
 import { Search } from "lucide-react";
-import { Session } from "next-auth";
-
 
 export default function ViewJob( {jobs}: {jobs: Job[]} ) {      
-    console.log(jobs)
     return (
         <div className="bg-white rounded-2xl border border-border shadow-sm overflow-hidden">
             { jobs.length > 0 ? (

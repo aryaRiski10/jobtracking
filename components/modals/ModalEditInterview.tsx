@@ -1,4 +1,4 @@
-import type { InterviewWithJob,ListCardInterviewProps } from '@/types/types';
+import type { InterviewWithJob } from '@/types/types';
 import { X } from 'lucide-react'
 import React from 'react'
 import UpdateForm from '../forms/update-form-interview';

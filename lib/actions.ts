@@ -72,13 +72,11 @@ export const addJob = async (prevState: unknown, formData: FormData) => {
                 userId: session.user.id,
             }
         })
-    } catch (error) {
+    } catch {
         return {
             error: "An unexpected error occurred while adding the job.",
         }
     }
-    console.log("Job added successfully");
-
     revalidatePath("/dashboard/applications");
     redirect("/dashboard/applications");
 }
@@ -101,8 +99,6 @@ export const updateJob = async (id: string, prevState: unknown, formData: FormDa
         }
     }
 
-    console.log(validatedField);
-
     try {
         const currentJob = await prisma.job.findUnique({
             where: { id },
@@ -122,18 +118,21 @@ export const updateJob = async (id: string, prevState: unknown, formData: FormDa
             }
         })
 
-            // If status changed to "interview", create an interview record
+        // If status changed to "interview", create an interview record
         if (currentJob?.status !== "interview" && validatedField.data.status === "interview"){
-            await prisma.interview.create({
-                data: {
-                    jobId: id,
-                    status: "upcoming",
-                }
-            })
+            const existingInterview = await prisma.interview.findFirst({where: { jobId: id }});
+            if (!existingInterview) {
+                await prisma.interview.create({
+                    data: {
+                        jobId: id,
+                        status: "upcoming",
+                    }
+                })
+            }
+            
         }
 
-    } catch (error) {
-        
+    } catch {
         return {
             error: "An unexpected error occurred while updating the job.",
         }
@@ -157,7 +156,7 @@ export const deleteJob = async (id: string) => {
         await prisma.job.delete({
             where: { id, userId: session.user.id },
         });
-    } catch (error) {
+    } catch {
         return {
             error: "An unexpected error occurred while deleting the job.",
         }
@@ -197,13 +196,10 @@ export const updateInterview = async (id: string, prevState: unknown, formData: 
                 notes: validatedField.data.notes,
             }
         })
-        console.log("Interview updated successfully");
-    } catch (error) {
+    } catch {
         return {
             error: "An unexpected error occurred while updating the interview.",
         }
-        // console.error(error);
-        // console.log(validatedField)
     }
 
     revalidatePath("/dashboard/interviews");

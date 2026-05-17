@@ -1,7 +1,7 @@
 'use client'
 import SearchResult from './SearchResult'
 import SearchInput from './SearchInput'
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { Job } from "@/app/generated/prisma/client"
 import ModalDetailJob from '../ModalDetailJob'
 import ModalEditJob from '../ModalEditJob'
@@ -13,7 +13,7 @@ const SearchClient = ({ closeModalSearch, jobs, isOpen, onClose }: { closeModalS
     const [isOpenModalEditJob, setIsOpenModalEditJob] = useState<boolean>(false);  
 
 
-    function handleSearchQuery(e: any){
+    function handleSearchQuery(e: React.ChangeEvent<HTMLInputElement>){
         setSearchQuery(e.target.value);
     }
 
@@ -72,9 +72,12 @@ const SearchClient = ({ closeModalSearch, jobs, isOpen, onClose }: { closeModalS
         </div>
     </div>
     )}
-    <ModalDetailJob job={selectedJob} onOpenEdit={handleOpenEditJob} isOpen={isOpenModalDetailJob} onClose={() => setIsOpenModalDetailJob(false)}/>
-    <ModalEditJob job={selectedJob} isOpen={isOpenModalEditJob} onCloseEdit={() => setIsOpenModalEditJob(false)}/>
-    
+    {selectedJob && (
+    <>
+        <ModalDetailJob job={selectedJob} onOpenEdit={handleOpenEditJob} isOpen={isOpenModalDetailJob} onClose={() => setIsOpenModalDetailJob(false)}/>
+        <ModalEditJob job={selectedJob} isOpen={isOpenModalEditJob} onCloseEdit={() => setIsOpenModalEditJob(false)}/>
+    </>
+    )}
     </>
   )
 }

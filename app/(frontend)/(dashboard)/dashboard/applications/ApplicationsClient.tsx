@@ -12,12 +12,12 @@ const ApplicationsClient = ({ jobs }: { jobs: Job[] }) => {
     const [searchTerm, setSearchTerm] = useState("");
     const [statusFilter, setStatusFilter] = useState<StatusFilter>("all");
     
-    function handleSerachJob(e: any){
+    function handleSearchJob(e: React.ChangeEvent<HTMLInputElement>){
         setSearchTerm(e.target.value);
     }
 
-    function handleStatusFilter(e: any){
-        setStatusFilter(e.target.value);
+    function handleStatusFilter(e: React.ChangeEvent<HTMLSelectElement>){
+        setStatusFilter(e.target.value as StatusFilter);
     }
 
     const filteredJobs = jobs.filter((job) => {
@@ -33,7 +33,7 @@ const ApplicationsClient = ({ jobs }: { jobs: Job[] }) => {
     return (
         <>
         <div className="bg-white p-4 rounded-2xl border border-border flex flex-col sm:flex-row gap-3 shadow-sm">
-            <SearchFilterJob searchTerm={searchTerm} handleSerachJob={handleSerachJob} statusFilter={statusFilter} handleStatusFilter={handleStatusFilter} />
+            <SearchFilterJob searchTerm={searchTerm} handleSearchJob={handleSearchJob} statusFilter={statusFilter} handleStatusFilter={handleStatusFilter} />
         </div>
         {/* List View */}
         <ViewJob jobs={filteredJobs}/>

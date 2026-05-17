@@ -1,5 +1,4 @@
 import { formatDate } from "@/lib/utils";
-import { ListCardProps } from "@/types/types";
 import { Edit, ExternalLink, FileText, X, Trash } from "lucide-react";
 import type { Job } from "@/app/generated/prisma/client";
 import { deleteJob } from "@/lib/actions";

@@ -1,7 +1,6 @@
 'use client'
-import { Bell, LogOut, Search } from "lucide-react"
+import { Bell,  Search } from "lucide-react"
 import NavbarUser from "./NavbarUser";
-import { Logout } from "@/lib/logout";
 import { useState } from "react"
 import ModalSearch from "../modals/ModalSearch"
 import { Session } from "next-auth";

@@ -1,7 +1,6 @@
 import { CircleUserRound, LogOut, UserPen } from "lucide-react";
 import { Session } from "next-auth";
 import { useEffect, useState } from "react";
-import { is } from "zod/locales";
 import Link from "next/link";
 import { Logout } from "@/lib/logout";
 import Image from "next/image";

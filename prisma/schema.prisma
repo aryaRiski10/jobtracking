@@ -13,35 +13,35 @@ datasource db {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String  @map("user_id")
-  type               String
-  provider           String
-  providerAccountId  String  @map("provider_account_id")
-  refresh_token      String? @db.Text
-  access_token       String? @db.Text
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String? @db.Text
-  session_state      String?
- 
+  id                String  @id @default(cuid())
+  userId            String  @map("user_id")
+  type              String
+  provider          String
+  providerAccountId String  @map("provider_account_id")
+  refresh_token     String? @db.Text
+  access_token      String? @db.Text
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String? @db.Text
+  session_state     String?
+
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@unique([provider, providerAccountId])
   @@map("accounts")
 }
- 
+
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique @map("session_token")
   userId       String   @map("user_id")
   expires      DateTime
   user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
- 
+
   @@map("sessions")
 }
- 
+
 model User {
   id            String    @id @default(cuid())
   name          String?
@@ -53,37 +53,37 @@ model User {
   jobs          Job[]
   accounts      Account[]
   sessions      Session[]
- 
+
   @@map("users")
 }
- 
+
 model VerificationToken {
   identifier String
   token      String
   expires    DateTime
- 
+
   @@unique([identifier, token])
   @@map("verification_tokens")
 }
 
 model Job {
-  id                String     @id @default(uuid())
-  companyName       String
-  companyLocation   String?
-  position          String
-  status            JobStatus  @default(applied)
-  jobUrl            String?
-  dateApplied       DateTime
-  notes             String?
+  id              String    @id @default(uuid())
+  companyName     String
+  companyLocation String?
+  position        String
+  status          JobStatus @default(applied)
+  jobUrl          String?
+  dateApplied     DateTime
+  notes           String?
 
-  createdAt         DateTime   @default(now())
-  updatedAt         DateTime   @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  userId            String
-  user              User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  histories         JobHistory[]
-  Interview         Interview[]
+  histories  JobHistory[]
+  interviews Interview[]
 
   @@index([userId])
 }
@@ -101,29 +101,29 @@ model JobHistory {
   status    JobStatus
   changedAt DateTime  @default(now())
 
-  job       Job       @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
 }
 
 model Interview {
-    id          String          @id @default(uuid())
-    jobId       String
-    title       String?         // "HR Interview", "Technical Interview", dll
-    date        DateTime?       // nullable — belum tentu langsung diisi
-    type        String?         // "Online", "Onsite", "Phone"
-    link        String?
-    notes       String?
-    status      InterviewStatus @default(upcoming)
+  id     String          @id @default(uuid())
+  jobId  String
+  title  String? // "HR Interview", "Technical Interview", dll
+  date   DateTime? // nullable — belum tentu langsung diisi
+  type   String? // "Online", "Onsite", "Phone"
+  link   String?
+  notes  String?
+  status InterviewStatus @default(upcoming)
 
-    createdAt   DateTime        @default(now())
-    updatedAt   DateTime        @updatedAt
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-    job         Job             @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  job Job @relation(fields: [jobId], references: [id], onDelete: Cascade)
 
-    @@index([jobId])
+  @@index([jobId])
 }
 
 enum InterviewStatus {
-    upcoming
-    completed
-    cancelled
+  upcoming
+  completed
+  cancelled
 }
