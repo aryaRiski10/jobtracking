@@ -59,7 +59,7 @@ export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job:
                 <div className="flex items-center justify-between">
                     <div
                     id="detailStatusBadge"
-                    className={`px-3 py-1 rounded-full text-xs font-semibold ${job?.status === 'applied' ? 'badge-applied' : job?.status === 'interview' ? 'badge-interview' : job?.status === 'offer' ? 'badge-offer' : 'badge-rejected'}`}
+                    className={`px-3 py-1 rounded-full text-xs font-semibold capitalize ${job?.status === 'applied' ? 'badge-applied' : job?.status === 'interview' ? 'badge-interview' : job?.status === 'offer' ? 'badge-offer' : 'badge-rejected'}`}
                     >
                     {job?.status}
                     </div>

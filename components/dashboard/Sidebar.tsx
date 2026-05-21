@@ -7,7 +7,7 @@ export default function Sidebar(){
         <aside className="hidden md:flex flex-col w-64 bg-white border-r border-border sticky top-0 h-screen shrink-0">
             <div className="h-16 flex items-center px-6 border-b border-border shrink-0">
                 <div className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-primary rounded-xl flex items-center justify-center shadow-sm shadow-primary/20">
+                <div className="w-10 h-10 bg-primary-hover rounded-xl flex items-center justify-center shadow-sm shadow-primary/20">
                     <Briefcase className="size-5 text-white" />
                 </div>
                 <h1 className="font-bold text-xl text-foreground">JobTracker</h1>
