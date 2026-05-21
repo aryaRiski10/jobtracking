@@ -1,0 +1,243 @@
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@300;400;600;700;800&family=DM+Sans:wght@400;500&display=swap');
+*{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --brand:#1A56FF;--brand-light:#EEF2FF;--brand-dark:#0F35CC;
+  --text-primary:#0D0D1A;--text-muted:#6B7280;--surface:#FFFFFF;
+  --accent:#FF5F40;--border:#E5E7EB;
+}
+body{background:var(--surface);font-family:'DM Sans',sans-serif;color:var(--text-primary)}
+
+.nav{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:0 2rem;height:60px;border-bottom:1px solid var(--border);
+  background:#fff;position:relative;z-index:10;
+}
+.nav-brand{display:flex;align-items:center;gap:8px;font-family:'Sora',sans-serif;font-weight:700;font-size:17px}
+.nav-icon{
+  width:34px;height:34px;background:var(--brand);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;
+}
+.nav-icon i{color:#fff;font-size:17px}
+.nav-login{
+  background:var(--brand);color:#fff;border:none;
+  padding:8px 18px;border-radius:8px;font-size:14px;font-weight:500;cursor:pointer;
+  font-family:'DM Sans',sans-serif;transition:background .2s;
+}
+.nav-login:hover{background:var(--brand-dark)}
+
+.hero{
+  min-height:560px;position:relative;overflow:hidden;
+  display:flex;align-items:center;justify-content:center;
+  background:#F8F9FF;
+}
+
+.hero-bg{
+  position:absolute;inset:0;overflow:hidden;
+}
+.blob{
+  position:absolute;border-radius:50%;filter:blur(80px);opacity:.35;
+  animation:float 8s ease-in-out infinite;
+}
+.blob-1{width:500px;height:500px;background:#93B4FF;top:-100px;right:-80px;animation-delay:0s}
+.blob-2{width:350px;height:350px;background:#FFB5A7;bottom:-60px;left:-60px;animation-delay:3s}
+.blob-3{width:250px;height:250px;background:#A3E6D8;top:40%;left:40%;animation-delay:1.5s}
+
+@keyframes float{
+  0%,100%{transform:translateY(0) scale(1)}
+  50%{transform:translateY(-30px) scale(1.04)}
+}
+
+.hero-inner{
+  position:relative;z-index:2;max-width:760px;
+  text-align:center;padding:60px 2rem 40px;
+}
+
+.badge{
+  display:inline-flex;align-items:center;gap:6px;
+  background:#fff;border:1px solid var(--border);
+  padding:5px 14px;border-radius:999px;font-size:13px;
+  color:var(--text-muted);margin-bottom:24px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+  animation:fadeUp .6s ease both;animation-delay:.1s;
+}
+.badge-dot{
+  width:7px;height:7px;border-radius:50%;background:var(--accent);
+  display:inline-block;animation:pulse 2s infinite;
+}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+
+.hero-title{
+  font-family:'Sora',sans-serif;
+  font-size:clamp(36px,6vw,58px);
+  font-weight:800;line-height:1.12;letter-spacing:-1.5px;
+  color:var(--text-primary);margin-bottom:20px;
+  animation:fadeUp .7s ease both;animation-delay:.2s;
+}
+.hero-title span{color:var(--brand)}
+.hero-title em{
+  font-style:normal;
+  background:linear-gradient(135deg,var(--accent),#FF9550);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+}
+
+.hero-sub{
+  font-size:17px;color:var(--text-muted);line-height:1.7;
+  max-width:520px;margin:0 auto 36px;
+  animation:fadeUp .7s ease both;animation-delay:.3s;
+}
+
+.hero-actions{
+  display:flex;gap:12px;justify-content:center;flex-wrap:wrap;
+  animation:fadeUp .7s ease both;animation-delay:.4s;
+}
+.btn-primary{
+  background:var(--brand);color:#fff;border:none;
+  padding:13px 28px;border-radius:10px;font-size:15px;font-weight:600;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:transform .15s,box-shadow .15s;
+  box-shadow:0 4px 16px rgba(26,86,255,.35);
+}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 6px 22px rgba(26,86,255,.45)}
+.btn-secondary{
+  background:#fff;color:var(--text-primary);border:1px solid var(--border);
+  padding:13px 28px;border-radius:10px;font-size:15px;font-weight:500;
+  cursor:pointer;font-family:'DM Sans',sans-serif;
+  display:inline-flex;align-items:center;gap:8px;
+  transition:background .15s,transform .15s;
+}
+.btn-secondary:hover{background:#F3F4F6;transform:translateY(-2px)}
+
+.stats-row{
+  display:flex;gap:0;justify-content:center;margin-top:48px;
+  background:#fff;border:1px solid var(--border);border-radius:14px;
+  overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06);
+  animation:fadeUp .7s ease both;animation-delay:.55s;
+}
+.stat-item{
+  flex:1;padding:16px 24px;text-align:center;
+  border-right:1px solid var(--border);min-width:120px;
+}
+.stat-item:last-child{border-right:none}
+.stat-num{
+  font-family:'Sora',sans-serif;font-size:22px;font-weight:700;
+  color:var(--text-primary);line-height:1.2;
+}
+.stat-num span{color:var(--brand)}
+.stat-lbl{font-size:12px;color:var(--text-muted);margin-top:2px}
+
+.floating-card{
+  position:absolute;background:#fff;border:1px solid var(--border);
+  border-radius:12px;box-shadow:0 4px 18px rgba(0,0,0,.08);
+  padding:12px 16px;display:flex;align-items:center;gap:10px;
+  font-size:13px;animation:floatCard 4s ease-in-out infinite;
+}
+.fc-left{left:2%;top:28%;animation-delay:0s}
+.fc-right{right:2%;top:40%;animation-delay:2s}
+@keyframes floatCard{
+  0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}
+}
+.fc-icon{
+  width:32px;height:32px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;flex-shrink:0;
+}
+.fc-icon.green{background:#DCFCE7}
+.fc-icon.orange{background:#FFF7ED}
+.fc-icon i{font-size:16px}
+.fc-icon.green i{color:#16A34A}
+.fc-icon.orange i{color:#EA580C}
+.fc-title{font-weight:600;color:var(--text-primary);margin-bottom:1px}
+.fc-sub{color:var(--text-muted);font-size:11.5px}
+
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(20px)}
+  to{opacity:1;transform:translateY(0)}
+}
+@media(max-width:680px){
+  .floating-card{display:none}
+  .stats-row{flex-direction:column}
+  .stat-item{border-right:none;border-bottom:1px solid var(--border)}
+  .stat-item:last-child{border-bottom:none}
+}
+</style>
+
+<div class="nav">
+  <div class="nav-brand">
+    <div class="nav-icon"><i class="ti ti-briefcase" aria-hidden="true"></i></div>
+    JobTracker
+  </div>
+  <button class="nav-login">Login</button>
+</div>
+
+<section class="hero">
+  <div class="hero-bg">
+    <div class="blob blob-1"></div>
+    <div class="blob blob-2"></div>
+    <div class="blob blob-3"></div>
+  </div>
+
+  <div class="floating-card fc-left" aria-hidden="true">
+    <div class="fc-icon green"><i class="ti ti-check"></i></div>
+    <div>
+      <div class="fc-title">Offer Accepted!</div>
+      <div class="fc-sub">Google · Senior Engineer</div>
+    </div>
+  </div>
+
+  <div class="floating-card fc-right" aria-hidden="true">
+    <div class="fc-icon orange"><i class="ti ti-calendar-event"></i></div>
+    <div>
+      <div class="fc-title">Interview Today</div>
+      <div class="fc-sub">Shopify · 2:00 PM</div>
+    </div>
+  </div>
+
+  <div class="hero-inner">
+    <div class="badge">
+      <span class="badge-dot"></span>
+      Lacak semua lamaran kerja Anda
+    </div>
+
+    <h1 class="hero-title">
+      Kelola Proses Lamaran<br>
+      Kerja Anda dengan <em>Mudah</em>
+    </h1>
+
+    <p class="hero-sub">
+      Pantau setiap lamaran, jadwal wawancara, dan progres karier Anda
+      dalam satu dasbor yang intuitif dan terorganisir.
+    </p>
+
+    <div class="hero-actions">
+      <button class="btn-primary" onclick="sendPrompt('Saya ingin mulai menggunakan JobTracker')">
+        <i class="ti ti-rocket" aria-hidden="true"></i>
+        Mulai Gratis
+      </button>
+      <button class="btn-secondary" onclick="sendPrompt('Bagaimana cara kerja JobTracker?')">
+        <i class="ti ti-player-play" aria-hidden="true"></i>
+        Lihat Demo
+      </button>
+    </div>
+
+    <div class="stats-row">
+      <div class="stat-item">
+        <div class="stat-num">12<span>K+</span></div>
+        <div class="stat-lbl">Pengguna Aktif</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">98<span>%</span></div>
+        <div class="stat-lbl">Tingkat Kepuasan</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">3<span>x</span></div>
+        <div class="stat-lbl">Lebih Cepat Dapat Kerja</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">50<span>K+</span></div>
+        <div class="stat-lbl">Lamaran Dilacak</div>
+      </div>
+    </div>
+  </div>
+</section>
