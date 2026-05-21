@@ -40,11 +40,11 @@ const [isProfileOpen, setIsProfileOpen] = useState(false);
 
         {isProfileOpen ? (
         <div id="profile-menu" className="w-40 absolute right-12 top-12 bg-white rounded-md shadow-sm flex flex-col" role="menu">
-          <Link href="/profile" className="h-10 px-3 border border-border text-secondary hover:bg-muted transition-colors cursor-pointer flex items-center gap-2">
+          <Link href="/profile" className="h-10 px-3 border border-border text-muted-foreground hover:bg-muted transition-colors cursor-pointer flex items-center gap-2">
             <UserPen className="size-4"/>
             <span className="hidden sm:inline text-sm font-medium">Profile</span>
           </Link>
-          <button onClick={Logout} className="h-10 px-3 border border-border text-secondary hover:bg-muted transition-colors cursor-pointer flex items-center gap-2"
+          <button onClick={Logout} className="h-10 px-3 border border-border text-muted-foreground hover:bg-muted transition-colors cursor-pointer flex items-center gap-2"
             >
                 <LogOut className="size-4" />
                 <span className="hidden sm:inline text-sm font-medium">Logout</span>

@@ -31,7 +31,7 @@ export default function ListCard({ job }: ListCardProps) {
                 <h4 className="font-semibold text-foreground truncate">
                 {job.position}
                 </h4>
-                <p className="text-sm text-secondary truncate">
+                <p className="text-sm text-muted-foreground truncate">
                 {job.companyName}
                 </p>
             </div>
@@ -42,15 +42,15 @@ export default function ListCard({ job }: ListCardProps) {
                 className={`px-3 py-1 rounded-full text-xs font-semibold capitalize ${job.status === 'applied' ? 'badge-applied' : job.status === 'interview' ? 'badge-interview' : job.status === 'offer' ? 'badge-offer' : 'badge-rejected'}`}
                 data-status-badge=""
                 >
-                {job.status}
+                {   job.status}
                 </span>
-                <span className="text-xs text-secondary mt-1 hidden sm:block">
-                Applied on {formatDate(job.dateApplied)}
+                <span className="text-xs text-muted-foreground mt-1 hidden sm:block">
+                    Applied on {formatDate(job.dateApplied)}
                 </span>
             </div>
             <button
                 onClick={handlerOpenModalDetailJob}
-                className="size-9 rounded-lg border border-border flex items-center justify-center text-secondary hover:bg-white hover:text-primary hover:border-primary transition-colors cursor-pointer bg-muted"
+                className="size-9 rounded-lg border border-border flex items-center justify-center text-muted-foreground hover:bg-white hover:text-primary-hover hover:border-primary-hover transition-colors cursor-pointer bg-muted"
                 >
                 <ChevronRight className="size-5"/>
             </button>

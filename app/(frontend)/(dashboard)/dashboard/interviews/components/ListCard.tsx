@@ -23,7 +23,7 @@ const ListCard = ({ interview }: ListCardInterviewProps) => {
           <>
             <span className="text-sm font-semibold text-error uppercase tracking-wider">Oct</span>
             <span className="text-3xl font-bold text-foreground">28</span>
-            <span className="text-sm text-secondary font-medium">10:00 AM</span>
+            <span className="text-sm text-muted-foreground font-medium">10:00 AM</span>
           </>
         )}
         
@@ -38,7 +38,7 @@ const ListCard = ({ interview }: ListCardInterviewProps) => {
         <h3 className="font-bold text-lg text-foreground truncate capitalize">
           {interview.job.position} - {interview.title ? interview.title : 'HR Interview'}
         </h3>
-        <p className="text-secondary text-sm flex items-center gap-1.5 mt-1 truncate">
+        <p className="text-muted-foreground text-sm flex items-center gap-1.5 mt-1 truncate">
           <Building2 className="size-4"/> {interview.job.companyName}
         </p>
       </div>
@@ -46,7 +46,7 @@ const ListCard = ({ interview }: ListCardInterviewProps) => {
       <div className="flex flex-row sm:flex-col items-center justify-end gap-2 shrink-0 mt-2 sm:mt-0 items-end">
         <div className="flex gap-4 items-center">
           <span className={`inline-flex items-center rounded-md px-2 py-1 text-xs font-medium inset-ring ${interview.date ? 'bg-green-400/10 text-green-400 inset-ring-green-500/20' : 'bg-yellow-400/10 text-yellow-500 inset-ring-yellow-400/20'} `}>Update the Schedule</span>
-          <button id="editButtonInterview" onClick={handleOpenModalEditInterview} className="size-10 rounded-xl border border-[#EEF0FF] flex items-center justify-center text-secondary hover:bg-muted transition-colors cursor-pointer" title="Edit">
+          <button id="editButtonInterview" onClick={handleOpenModalEditInterview} className="size-10 rounded-xl border border-[#EEF0FF] flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors cursor-pointer" title="Edit">
               <Edit className="size-4" />
           </button>
         </div> 

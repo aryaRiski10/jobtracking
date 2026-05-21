@@ -4,6 +4,7 @@ import { prisma } from "@/lib/prisma";
 import { auth } from "@/auth";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
+import { startOfWeek, endOfWeek, subWeeks } from "date-fns";
 
 const emptyStringToUndefined = (value: unknown) => {
     if (typeof value === "string" && value.trim() === "") {
@@ -204,4 +205,37 @@ export const updateInterview = async (id: string, prevState: unknown, formData: 
 
     revalidatePath("/dashboard/interviews");
     redirect("/dashboard/interviews");
+}
+
+export const getActivityData = async() => {
+    const session = await auth();
+
+    if (!session?.user?.id) {
+        return [];
+    }
+
+    const weeks = Array.from({ length: 4 }, (_, i) => ({
+        label: `Week ${i + 1}`,
+        start: startOfWeek(subWeeks(new Date(), 3 - i)),
+        end: endOfWeek(subWeeks(new Date(), 3 - i)),
+    }));
+    
+    try{
+        const data = await Promise.all(weeks.map(async ({ label, start, end }) => {
+            const count = await prisma.job.count({
+                where: {
+                    userId: session.user.id,
+                    dateApplied: {
+                        gte: start,
+                        lte: end,
+                    },
+                },
+            });
+            return { week: label, applications: count };
+        }));
+        return data;
+    } catch {
+        return [];    
+    }
+        
 }

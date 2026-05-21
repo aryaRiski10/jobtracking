@@ -1,9 +1,12 @@
 import { Award, Calendar, Send, TrendingUp } from "lucide-react";
 import { getJobs, getInterviews, getStatusLabelInterview } from "@/lib/data";
+import { getActivityData } from "@/lib/actions";
+import Charts from "./components/Charts";
 
 export default async function DashboardPage() {
     const jobs = await getJobs();
     const interviews = await getInterviews();
+    const activityData = await getActivityData();
 
     return (
         <section id="section-overview" className="space-y-6 block">
@@ -11,7 +14,7 @@ export default async function DashboardPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="bg-white p-5 rounded-2xl border border-border flex flex-col gap-2 shadow-sm">
                 <div className="flex items-center justify-between">
-                    <p className="font-medium text-secondary text-sm">Total Applied</p>
+                    <p className="font-medium text-sm">Total Applied</p>
                     <div className="size-8 bg-primary/10 rounded-lg flex items-center justify-center">
                         <Send className="size-4 text-primary" />
                     </div>
@@ -31,7 +34,7 @@ export default async function DashboardPage() {
                 </div>
                 <div className="bg-white p-5 rounded-2xl border border-border flex flex-col gap-2 shadow-sm">
                 <div className="flex items-center justify-between">
-                    <p className="font-medium text-secondary text-sm">Interviews</p>
+                    <p className="font-medium text-sm">Interviews</p>
                     <div className="size-8 bg-warning/10 rounded-lg flex items-center justify-center">
                         <Calendar className="size-4 text-warning" />
                     </div>
@@ -40,7 +43,7 @@ export default async function DashboardPage() {
                     <h3 className="font-bold text-3xl text-foreground">{interviews.filter(interview => {
                         return interview.date;
                     }).length}</h3>
-                    <span className="text-xs font-medium text-secondary mb-1">
+                    <span className="text-xs font-medium mb-1">
                     {interviews.filter(interview => {
                         return interview.date === null;
                     }).length} pending
@@ -49,14 +52,14 @@ export default async function DashboardPage() {
                 </div>
                 <div className="bg-white p-5 rounded-2xl border border-border flex flex-col gap-2 shadow-sm">
                 <div className="flex items-center justify-between">
-                    <p className="font-medium text-secondary text-sm">Offers</p>
+                    <p className="font-medium text-sm">Offers</p>
                     <div className="size-8 bg-success/10 rounded-lg flex items-center justify-center">
                         <Award className="size-4 text-success" />
                     </div>
                 </div>
                 <div className="flex items-end gap-2">
                     <h3 className="font-bold text-3xl text-foreground">{jobs.filter(job => job.status === "offer").length}</h3>
-                    <span className="text-xs font-medium text-secondary mb-1">
+                    <span className="text-xs font-medium mb-1">
                     Pending response
                     </span>
                 </div>
@@ -75,8 +78,9 @@ export default async function DashboardPage() {
                     <option>This Year</option>
                     </select>
                 </div>
-                <div className="h-[250px] w-full">
-                    <canvas id="activityChart" />
+                <div className="w-full relative">
+                    {/* <canvas id="activityChart" /> */}
+                    <Charts data={activityData} />
                 </div>
                 </div>
                 {/* Timeline */}
@@ -89,59 +93,19 @@ export default async function DashboardPage() {
                         {jobs.map(job => {
                             return (
                                 <div key={job.id} className="relative pl-6">
-                                    <div className={`absolute -left-[9px] top-1 size-4 rounded-full bg-white border-2 ${job.status === "applied" ? "border-muted" : job.status === "interview" ? "border-primary" : job.status === "offer" ? "border-success" : job.status === "rejected" ? "border-error" : "border-muted"}`} />
-                                    <p className="text-xs text-secondary mb-1">
+                                    <div className={`absolute -left-[9px] top-1 size-4 rounded-full bg-white border-2 ${job.status === "applied" ? "border-muted-foreground" : job.status === "interview" ? "border-primary-hover" : job.status === "offer" ? "border-success" : job.status === "rejected" ? "border-error" : "border-muted"}`} />
+                                    <p className="text-xs mb-1 text-muted-foreground">
                                         {getStatusLabelInterview(job)}
                                     </p>
-                                    <p className="font-medium text-sm text-foreground">
-                                    {job.status === "applied" ? "Applied for role" : job.status === "interview" ? "Interview scheduled" : job.status === "offer" ? "Received offer" : job.status === "rejected" ? "Application Rejected" : "Status updated"}
+                                    <p className="font-semibold text-sm">
+                                        {job.status === "applied" ? "Applied for role" : job.status === "interview" ? "Interview scheduled" : job.status === "offer" ? "Received offer" : job.status === "rejected" ? "Application Rejected" : "Status updated"}
                                     </p>
-                                    <p className="text-sm text-secondary mt-1">
-                                    {job.position} at {job.companyName}
+                                    <p className="text-sm mt-1">
+                                        {job.position} at {job.companyName}
                                     </p>
                                 </div>
                             )
                         })}
-                        {/* <div className="relative pl-6">
-                            <div className="absolute -left-[9px] top-1 size-4 rounded-full bg-white border-2 border-primary" />
-                            <p className="text-xs text-secondary mb-1">Today, 10:30 AM</p>
-                            <p className="font-medium text-sm text-foreground">
-                            Interview scheduled
-                            </p>
-                            <p className="text-sm text-secondary mt-1">
-                            Product Designer at Stripe
-                            </p>
-                        </div>
-                        <div className="relative pl-6">
-                            <div className="absolute -left-[9px] top-1 size-4 rounded-full bg-white border-2 border-success" />
-                            <p className="text-xs text-secondary mb-1">Yesterday</p>
-                            <p className="font-medium text-sm text-foreground">
-                            Application moved to Review
-                            </p>
-                            <p className="text-sm text-secondary mt-1">
-                            UX Researcher at Spotify
-                            </p>
-                        </div>
-                        <div className="relative pl-6">
-                            <div className="absolute -left-[9px] top-1 size-4 rounded-full bg-white border-2 border-muted" />
-                            <p className="text-xs text-secondary mb-1">Oct 24, 2023</p>
-                            <p className="font-medium text-sm text-foreground">
-                            Applied for role
-                            </p>
-                            <p className="text-sm text-secondary mt-1">
-                            Frontend Dev at Vercel
-                            </p>
-                        </div>
-                        <div className="relative pl-6">
-                            <div className="absolute -left-[9px] top-1 size-4 rounded-full bg-white border-2 border-error" />
-                            <p className="text-xs text-secondary mb-1">Oct 22, 2023</p>
-                            <p className="font-medium text-sm text-foreground">
-                            Application Rejected
-                            </p>
-                            <p className="text-sm text-secondary mt-1">
-                            Senior Designer at Netflix
-                            </p>
-                        </div> */}
                     </div>
                 </div>
                 </div>

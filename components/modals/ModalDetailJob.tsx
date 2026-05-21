@@ -41,14 +41,14 @@ export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job:
                         >
                         {job?.position}
                     </h3>
-                    <p id="detailCompany" className="text-secondary font-medium">
+                    <p id="detailCompany" className="text-muted-foreground font-medium">
                         {job?.companyName}
                     </p>
                     </div>
                 </div>
                 <button
                     onClick={onClose}
-                    className="size-8 flex items-center justify-center rounded-full bg-white border border-border hover:bg-muted text-secondary cursor-pointer transition-colors absolute top-6 right-6 shadow-sm"
+                    className="size-8 flex items-center justify-center rounded-full bg-white border border-border hover:bg-muted text-muted-foreground cursor-pointer transition-colors absolute top-6 right-6 shadow-sm"
                     >
                     <X className="size-4" />
                 </button>
@@ -65,16 +65,16 @@ export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job:
                     </div>
                     <div className="flex gap-2">
                     <button id="editButton"
-                        className="size-10 rounded-xl border border-[#EEF0FF] flex items-center justify-center text-secondary hover:bg-muted transition-colors cursor-pointer"
+                        className="size-10 rounded-xl border border-[#EEF0FF] flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors cursor-pointer"
                         title="Edit"
                         onClick={onOpenEdit}
                         >
                         <Edit className="size-4" />
                     </button>
-                    <a  href={job?.jobUrl ?? ' '} target="_blank" rel="noopener noreferrer" className={` ${job?.jobUrl ? '' : 'pointer-events-none opacity-50 cursor-default'} size-10 rounded-xl border border-[#EEF0FF] flex items-center justify-center text-secondary hover:bg-muted transition-colors cursor-pointer`} title="Visit Link">
+                    <a  href={job?.jobUrl ?? ' '} target="_blank" rel="noopener noreferrer" className={` ${job?.jobUrl ? '' : 'pointer-events-none opacity-50 cursor-default'} size-10 rounded-xl border border-[#EEF0FF] flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors cursor-pointer`} title="Visit Link">
                         <ExternalLink className="size-4" />
                     </a>
-                    <button className="size-10 rounded-xl border border-[#EEF0FF] flex items-center justify-center text-secondary hover:bg-muted transition-colors cursor-pointer"
+                    <button className="size-10 rounded-xl border border-[#EEF0FF] flex items-center justify-center text-muted-foreground hover:bg-muted transition-colors cursor-pointer"
                         title="Delete"
                         onClick={() => deleteJob(job?.id)}
                         >
@@ -86,7 +86,7 @@ export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job:
                 {/* Details Grid */}
                 <div className="grid grid-cols-2 gap-4">
                     <div className="bg-muted p-4 rounded-2xl">
-                    <p className="text-xs text-secondary font-medium mb-1 uppercase tracking-wider">
+                    <p className="text-xs text-muted-foreground font-medium mb-1 uppercase tracking-wider">
                         Date Applied
                     </p>
                     <p id="detailDate" className="font-semibold text-foreground">
@@ -94,7 +94,7 @@ export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job:
                     </p>
                     </div>
                     <div className="bg-muted p-4 rounded-2xl">
-                    <p className="text-xs text-secondary font-medium mb-1 uppercase tracking-wider">
+                    <p className="text-xs text-muted-foreground font-medium mb-1 uppercase tracking-wider">
                         Location
                     </p>
                     <p id="detailLocation" className="font-semibold text-foreground">
@@ -105,9 +105,9 @@ export default function ModalDetailJob({job, onOpenEdit, isOpen, onClose}: {job:
                 {/* Notes */}
                 <div>
                     <h4 className="font-semibold text-foreground mb-2 flex items-center gap-2">
-                    <FileText className="size-4 text-secondary" /> Notes
+                    <FileText className="size-4 text-muted-foreground" /> Notes
                     </h4>
-                    <div className="whitespace-pre-wrap bg-card-grey border border-border rounded-2xl p-4 text-sm text-secondary leading-relaxed min-h-[100px]">
+                    <div className="whitespace-pre-wrap bg-card-grey border border-border rounded-2xl p-4 text-sm text-muted-foreground leading-relaxed min-h-[100px]">
                     {job?.notes || "No notes added yet."}
                     </div>
                 </div>

@@ -7,7 +7,7 @@ const SearchResult = ({openJobDetail, query, resultsJobs}: {openJobDetail: (job:
     <div className="p-4 overflow-y-auto max-h-[50vh]">
         { query ? (
             <>
-            <p className="text-xs font-semibold text-secondary mb-3 uppercase tracking-wider">
+            <p className="text-xs font-semibold text-muted-foreground mb-3 uppercase tracking-wider">
             Recent Searches
             </p>
             <div className="flex flex-col gap-1">
@@ -23,7 +23,7 @@ const SearchResult = ({openJobDetail, query, resultsJobs}: {openJobDetail: (job:
                                 <p className="font-medium text-foreground truncate text-left">
                                 {job.position}
                                 </p>
-                                <p className="text-xs text-secondary truncate text-left">{job.companyName}</p>
+                                <p className="text-xs text-muted-foreground truncate text-left">{job.companyName}</p>
                             </div>
                             </button>       
                         </div>
